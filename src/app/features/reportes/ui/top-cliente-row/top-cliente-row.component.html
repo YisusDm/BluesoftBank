@@ -4,12 +4,18 @@
   </td>
   <td class="top-row__cell">{{ cliente().nombre }}</td>
   <td class="top-row__cell top-row__cell--txs">
-    <span class="txs-badge">{{ cliente().totalTransacciones }}</span>
+    <div class="top-row__metric">
+      <span class="txs-badge">{{ cliente().totalTransacciones }}</span>
+    </div>
   </td>
   <td class="top-row__cell top-row__cell--txs">
-    <span class="txs-badge">{{ cliente().totalConsignaciones }}</span>
+    <div class="top-row__metric">
+      <span class="txs-badge">{{ cliente().totalConsignaciones }}</span>
+    </div>
   </td>
   <td class="top-row__cell top-row__cell--txs">
-    <span class="txs-badge">{{ cliente().totalRetiros }}</span>
+    <div class="top-row__metric">
+      <span class="txs-badge">{{ cliente().totalRetiros }}</span>
+    </div>
   </td>
 </tr>

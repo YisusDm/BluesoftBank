@@ -1,3 +1,7 @@
+:host {
+  display: contents;
+}
+
 .rc-row {
   border-bottom: 1px solid #edf2fb;
   transition: background 0.1s;
@@ -13,7 +17,13 @@
 
 .rc-row__cell--ciudad { color: #6b7a99; }
 .rc-row__cell--ops { text-align: center; }
-.rc-row__cell--total { font-weight: 600; color: #c62828; text-align: right; }
+.rc-row__cell--total { font-weight: 600; color: #c62828; text-align: center; }
+
+.rc-row__metric {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
 
 .ciudades {
   display: flex;

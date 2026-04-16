@@ -1,8 +1,16 @@
 <tr class="rc-row">
   <td class="rc-row__cell">{{ retiro().nombre }}</td>
   <td class="rc-row__cell rc-row__cell--ciudad">{{ retiro().ciudadOrigen }}</td>
-  <td class="rc-row__cell rc-row__cell--ops">{{ retiro().totalRetirosFueraCiudad }}</td>
-  <td class="rc-row__cell rc-row__cell--total">{{ retiro().valorTotalRetiros | currencyColombian }}</td>
+  <td class="rc-row__cell rc-row__cell--ops" style="text-align: center;">
+    <div class="rc-row__metric">
+      {{ retiro().totalRetirosFueraCiudad }}
+    </div>
+  </td>
+  <td class="rc-row__cell rc-row__cell--total" style="text-align: center;">
+    <div class="rc-row__metric">
+      {{ retiro().valorTotalRetiros | currencyColombian }}
+    </div>
+  </td>
   <td class="rc-row__cell">
     @if (retiro().ultimoRetiro) {
       {{ retiro().ultimoRetiro | fechaRelativa }}

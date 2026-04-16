@@ -1,3 +1,7 @@
+:host {
+  display: contents;
+}
+
 .top-row {
   border-bottom: 1px solid #edf2fb;
   transition: background 0.1s;
@@ -13,7 +17,15 @@
 
 .top-row__cell--pos { width: 56px; text-align: center; }
 .top-row__cell--ciudad { color: #6b7a99; }
-.top-row__cell--txs { text-align: right; }
+.top-row__cell--txs {
+  text-align: center;
+}
+
+.top-row__metric {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
 
 .posicion {
   display: inline-flex;
@@ -34,7 +46,9 @@
 }
 
 .txs-badge {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 0.2rem 0.6rem;
   background: #eef4ff;
   color: var(--color-primary);
