@@ -31,6 +31,31 @@ export class CrearCuentaCorrienteFormComponent {
     return c.invalid && c.touched;
   }
 
+  onCupoFocusOrClick(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    this.form.controls.cupoSobregiro.setValue(0, { emitEvent: false });
+    target.value = '';
+  }
+
+  onCupoInput(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    const digitsOnly = target.value.replace(/\D/g, '');
+
+    if (!digitsOnly) {
+      this.form.controls.cupoSobregiro.setValue(0, { emitEvent: false });
+      target.value = '';
+      return;
+    }
+
+    const normalized = digitsOnly.replace(/^0+/, '') || '0';
+    const numericValue = Number(normalized);
+
+    this.form.controls.cupoSobregiro.setValue(Number.isFinite(numericValue) ? numericValue : 0, {
+      emitEvent: false
+    });
+    target.value = normalized.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  }
+
   onSubmit(): void {
     this.form.markAllAsTouched();
     if (this.form.invalid) return;

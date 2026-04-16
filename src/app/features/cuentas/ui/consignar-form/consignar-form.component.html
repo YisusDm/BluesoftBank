@@ -7,10 +7,13 @@
       id="monto-consignar"
       class="op-form__input"
       [class.op-form__input--error]="montoInvalido"
-      type="number"
+      type="text"
+      inputmode="numeric"
+      appCopCurrencyInput
       formControlName="monto"
       min="1"
-      placeholder="Ej: 500000"
+      placeholder="Ej: 500.000"
+      [disabled]="enviando()"
     />
     @if (montoInvalido) {
       <span class="op-form__error" role="alert">El monto debe ser mayor a 0</span>
@@ -26,6 +29,7 @@
       type="text"
       formControlName="ciudad"
       placeholder="Ej: Bogota"
+      [disabled]="enviando()"
     />
     @if (ciudadInvalida) {
       <span class="op-form__error" role="alert">La ciudad es requerida</span>
@@ -33,7 +37,7 @@
   </div>
 
   <div class="op-form__acciones">
-    <button type="button" class="btn-cancelar" (click)="cancelar.emit()">Cancelar</button>
-    <button type="submit" class="btn-confirmar btn-confirmar--consignar">Consignar</button>
+    <button type="button" class="btn-cancelar" (click)="cancelar.emit()" [disabled]="enviando()">Cancelar</button>
+    <button type="submit" class="btn-confirmar btn-confirmar--consignar" [disabled]="enviando()">Consignar</button>
   </div>
 </form>

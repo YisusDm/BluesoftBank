@@ -38,7 +38,18 @@
 
     <div class="crear-form__campo crear-form__campo--full">
       <label class="crear-form__label" for="cupo-corriente">Cupo de sobregiro (COP)</label>
-      <input id="cupo-corriente" class="crear-form__input" [class.crear-form__input--error]="invalido('cupoSobregiro')" type="number" min="1" formControlName="cupoSobregiro" placeholder="Ej: 5000000" />
+      <input
+        id="cupo-corriente"
+        class="crear-form__input"
+        [class.crear-form__input--error]="invalido('cupoSobregiro')"
+        type="text"
+        inputmode="numeric"
+        formControlName="cupoSobregiro"
+        placeholder="Ej: 5.000.000"
+        (focus)="onCupoFocusOrClick($event)"
+        (click)="onCupoFocusOrClick($event)"
+        (input)="onCupoInput($event)"
+      />
       @if (invalido('cupoSobregiro')) { <span class="crear-form__error">El cupo debe ser mayor a 0</span> }
     </div>
   </div>

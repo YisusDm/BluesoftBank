@@ -1,0 +1,41 @@
+.pending {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 2rem;
+  border: 1px solid #b8caea;
+  border-radius: 0.8rem;
+  background: #ffffff;
+  text-align: center;
+}
+
+.pending__icono {
+  font-size: 2.5rem;
+  color: var(--color-primary);
+  opacity: 0.5;
+}
+
+.pending__titulo {
+  margin: 0;
+  color: #133d7f;
+  font-size: 1.1rem;
+}
+
+.pending__mensaje {
+  margin: 0;
+  color: #2b4166;
+}
+
+.pending__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #0a56b5;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.pending__link:hover {
+  text-decoration: underline;
+}

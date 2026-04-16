@@ -24,33 +24,110 @@
   background: #eef4ff;
 }
 
-.page__layout {
+.detail-form {
   display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 1.5rem;
-  align-items: start;
-}
-
-.page__aside {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  position: sticky;
-  top: 80px;
-}
-
-.page__main {
-  display: flex;
-  flex-direction: column;
   gap: 1.25rem;
+  padding: 1.25rem;
+  border: 1px solid #dce6f5;
+  border-radius: 1rem;
+  background: #ffffff;
+}
+
+.detail-form__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.detail-form__eyebrow {
+  margin: 0 0 0.25rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6b7a99;
+}
+
+.detail-form__title {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 1.6rem;
+}
+
+.detail-form__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.detail-field {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.detail-field--full {
+  grid-column: 1 / -1;
+}
+
+.detail-field__label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #6b7a99;
+}
+
+.detail-field__input {
+  width: 100%;
+  border: 1px solid #d3dff1;
+  border-radius: 0.6rem;
+  background: #f8fbff;
+  color: #18345f;
+  padding: 0.75rem 0.85rem;
+  font: inherit;
+}
+
+.detail-field__input--saldo {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.detail-form__actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  border: 0;
+  border-radius: 0.55rem;
+  padding: 0.7rem 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.action-btn:hover {
+  transform: translateY(-1px);
+}
+
+.action-btn--consignar {
+  background: #dff3e3;
+  color: #1a6a2e;
+}
+
+.action-btn--retirar {
+  background: #fff0e8;
+  color: #a83200;
+}
+
+.action-btn--extracto {
+  background: #eef4ff;
+  color: var(--color-primary);
 }
 
 @media (max-width: 768px) {
-  .page__layout {
+  .detail-form__grid {
     grid-template-columns: 1fr;
-  }
-
-  .page__aside {
-    position: static;
   }
 }

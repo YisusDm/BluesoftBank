@@ -18,8 +18,9 @@ export class SignalRService implements OnDestroy {
 
     this.hubConnection = new signalR.HubConnectionBuilder()
       .withUrl(environment.signalrUrl, {
-        // Prevent credentialed CORS preflight so wildcard origins from backend don't fail.
-        withCredentials: false
+        withCredentials: false,
+        skipNegotiation: true,
+        transport: signalR.HttpTransportType.WebSockets
       })
       .withAutomaticReconnect({
         nextRetryDelayInMilliseconds: (ctx) => {

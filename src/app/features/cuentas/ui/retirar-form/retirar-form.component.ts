@@ -1,13 +1,14 @@
-import { ChangeDetectionStrategy, Component, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { RetirarRequest } from '../../data-access/cuenta.models';
 import { CurrencyColombianPipe } from '../../../../shared/pipes/currency-colombian.pipe';
+import { CopCurrencyInputDirective } from '../../../../shared/directives/cop-currency-input.directive';
 
 @Component({
   selector: 'app-retirar-form',
   standalone: true,
-  imports: [ReactiveFormsModule, CurrencyColombianPipe],
+  imports: [ReactiveFormsModule, CurrencyColombianPipe, CopCurrencyInputDirective],
   templateUrl: './retirar-form.component.html',
   styleUrl: './retirar-form.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -15,11 +16,10 @@ import { CurrencyColombianPipe } from '../../../../shared/pipes/currency-colombi
 export class RetirarFormComponent {
   private readonly fb = inject(FormBuilder);
 
+  enviando = input<boolean>(false);
   saldoActual = input<number>(0);
   retirar = output<RetirarRequest>();
   cancelar = output<void>();
-
-  readonly enviando = signal(false);
   readonly MONTO_MINIMO = 1_000_000;
 
   readonly form = this.fb.nonNullable.group({
@@ -43,6 +43,8 @@ export class RetirarFormComponent {
   }
 
   onSubmit(): void {
+    if (this.enviando()) return;
+
     this.form.markAllAsTouched();
     if (this.form.invalid || this.saldoInsuficiente) return;
     this.retirar.emit(this.form.getRawValue());

@@ -1,12 +1,13 @@
-import { ChangeDetectionStrategy, Component, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { ConsignarRequest } from '../../data-access/cuenta.models';
+import { CopCurrencyInputDirective } from '../../../../shared/directives/cop-currency-input.directive';
 
 @Component({
   selector: 'app-consignar-form',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CopCurrencyInputDirective],
   templateUrl: './consignar-form.component.html',
   styleUrl: './consignar-form.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -14,10 +15,9 @@ import { ConsignarRequest } from '../../data-access/cuenta.models';
 export class ConsignarFormComponent {
   private readonly fb = inject(FormBuilder);
 
+  enviando = input<boolean>(false);
   consignar = output<ConsignarRequest>();
   cancelar = output<void>();
-
-  readonly enviando = signal(false);
 
   readonly form = this.fb.nonNullable.group({
     monto: [0, [Validators.required, Validators.min(1)]],
@@ -35,6 +35,8 @@ export class ConsignarFormComponent {
   }
 
   onSubmit(): void {
+    if (this.enviando()) return;
+
     this.form.markAllAsTouched();
     if (this.form.invalid) return;
     this.consignar.emit(this.form.getRawValue());

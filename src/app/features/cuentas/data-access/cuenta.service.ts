@@ -1,7 +1,8 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Observable, finalize, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import { ProblemDetails } from '../../../core/models/problem-details.model';
 import { Result } from '../../../core/models/result.model';
 import {
   ConsignarRequest,
@@ -84,7 +85,7 @@ export class CuentaService {
           this._cuentas.set((res.cuentas ?? []).map((item) => this.mapCuenta(item as CuentaApiRaw)));
           this._totalRegistros.set(res.totalRegistros);
         },
-        error: (err) => this._error.set(err.message)
+        error: (err) => this._error.set(this.extraerMensajeError(err))
       });
   }
 
@@ -96,7 +97,7 @@ export class CuentaService {
       .pipe(finalize(() => this._loading.set(false)))
       .subscribe({
         next: (cuenta) => this._cuenta.set(this.mapCuenta(cuenta as CuentaApiRaw)),
-        error: (err) => this._error.set(err.message)
+        error: (err) => this._error.set(this.extraerMensajeError(err))
       });
   }
 
@@ -118,7 +119,7 @@ export class CuentaService {
               this.mapTransaccion(item as TransaccionApiRaw)
             )
           }),
-        error: (err) => this._error.set(err.message)
+        error: (err) => this._error.set(this.extraerMensajeError(err))
       });
   }
 
@@ -134,7 +135,7 @@ export class CuentaService {
       .pipe(finalize(() => this._loading.set(false)))
       .subscribe({
         next: (extracto) => this._extracto.set(this.mapExtracto(extracto)),
-        error: (err) => this._error.set(err.message)
+        error: (err) => this._error.set(this.extraerMensajeError(err))
       });
   }
 
@@ -153,7 +154,7 @@ export class CuentaService {
             src.subscribe({
               next: (v) => obs.next({ isSuccess: true, value: v }),
               error: (e) =>
-                obs.next({ isSuccess: false, error: e?.message ?? 'Error desconocido' }),
+                obs.next({ isSuccess: false, error: this.extraerMensajeError(e, 'Error desconocido') }),
               complete: () => obs.complete()
             });
           })
@@ -175,7 +176,7 @@ export class CuentaService {
             src.subscribe({
               next: (v) => obs.next({ isSuccess: true, value: v }),
               error: (e) =>
-                obs.next({ isSuccess: false, error: e?.message ?? 'Error desconocido' }),
+                obs.next({ isSuccess: false, error: this.extraerMensajeError(e, 'Error desconocido') }),
               complete: () => obs.complete()
             });
           })
@@ -191,7 +192,7 @@ export class CuentaService {
             src.subscribe({
               next: (v) => obs.next({ isSuccess: true, value: v }),
               error: (e) =>
-                obs.next({ isSuccess: false, error: e?.message ?? 'Error desconocido' }),
+                obs.next({ isSuccess: false, error: this.extraerMensajeError(e, 'Error desconocido') }),
               complete: () => obs.complete()
             });
           })
@@ -209,7 +210,7 @@ export class CuentaService {
             src.subscribe({
               next: (v) => obs.next({ isSuccess: true, value: v }),
               error: (e) =>
-                obs.next({ isSuccess: false, error: e?.message ?? 'Error desconocido' }),
+                obs.next({ isSuccess: false, error: this.extraerMensajeError(e, 'Error desconocido') }),
               complete: () => obs.complete()
             });
           })
@@ -224,12 +225,15 @@ export class CuentaService {
   }
 
   private mapCuenta(raw: CuentaApiRaw): CuentaDto {
+    const saldo = Number(raw.saldo ?? (raw as { saldoActual?: number | string }).saldoActual ?? 0);
+
     return {
-      id: raw.id ?? raw.cuentaId ?? '',
+      id: raw.cuentaId ?? raw.id ?? '',
       numeroCuenta: raw.numeroCuenta ?? '',
       tipoCuenta: raw.tipoCuenta ?? 'CuentaAhorro',
-      saldo: raw.saldo ?? 0,
+      saldo: Number.isFinite(saldo) ? saldo : 0,
       ciudad: raw.ciudad ?? raw.cliente?.ciudad ?? '',
+      fechaCreacion: raw.fechaCreacion,
       clienteNombre: raw.clienteNombre ?? raw.cliente?.nombre ?? 'Cliente',
       clienteId: raw.clienteId ?? raw.cliente?.clienteId ?? '',
       correoCliente: raw.correoCliente ?? raw.cliente?.correo,
@@ -264,5 +268,42 @@ export class CuentaService {
       totalRetiros: raw.totalRetiros ?? 0,
       movimientos
     };
+  }
+
+  private extraerMensajeError(error: unknown, fallback = 'Error inesperado en la operacion.'): string {
+    if (error instanceof HttpErrorResponse) {
+      const payload = error.error as ProblemDetails | string | undefined;
+
+      if (typeof payload === 'string' && payload.trim().length > 0) {
+        return payload;
+      }
+
+      if (payload && typeof payload === 'object') {
+        if (payload.message) {
+          return payload.message;
+        }
+        if (payload.detail) {
+          return payload.detail;
+        }
+        if (payload.title) {
+          return payload.title;
+        }
+      }
+
+      if (error.message) {
+        return error.message;
+      }
+
+      return fallback;
+    }
+
+    if (error && typeof error === 'object' && 'message' in error) {
+      const message = (error as { message?: unknown }).message;
+      if (typeof message === 'string' && message.length > 0) {
+        return message;
+      }
+    }
+
+    return fallback;
   }
 }

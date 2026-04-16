@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, effect, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CuentaService } from '../data-access/cuenta.service';
 import { SaldoCardComponent } from '../ui/saldo-card/saldo-card.component';
-import { CuentaInfoCardComponent } from '../ui/cuenta-info-card/cuenta-info-card.component';
-import { OperacionesMenuComponent, OperacionTipo } from '../ui/operaciones-menu/operaciones-menu.component';
+import { OperacionTipo } from '../ui/operaciones-menu/operaciones-menu.component';
 import { ConsignarFormComponent } from '../ui/consignar-form/consignar-form.component';
 import { RetirarFormComponent } from '../ui/retirar-form/retirar-form.component';
 import { MovimientosListComponent } from '../ui/movimientos-list/movimientos-list.component';
@@ -17,8 +16,6 @@ import { ConsignarRequest, RetirarRequest } from '../data-access/cuenta.models';
   standalone: true,
   imports: [
     SaldoCardComponent,
-    CuentaInfoCardComponent,
-    OperacionesMenuComponent,
     ConsignarFormComponent,
     RetirarFormComponent,
     MovimientosListComponent,
@@ -36,19 +33,61 @@ export class CuentaDetailPage implements OnInit {
   private readonly notificacion = inject(NotificacionService);
 
   protected readonly operacionActiva = signal<OperacionTipo | null>(null);
+  protected readonly operacionEnCurso = signal(false);
   private readonly paginaMovimientos = signal(1);
+  private readonly manejoErrorRealizado = signal(false);
 
   private get cuentaId(): string {
     return this.route.snapshot.paramMap.get('id') ?? '';
   }
 
+  constructor() {
+    effect(() => {
+      const error = this.service.error();
+      const cuenta = this.service.cuenta();
+
+      if (!error || cuenta || this.manejoErrorRealizado()) {
+        return;
+      }
+
+      const esCuentaNoDisponible =
+        error.toLowerCase().includes('no existe') ||
+        error.toLowerCase().includes('account_not_found') ||
+        error.toLowerCase().includes('modificada por otro proceso') ||
+        error.toLowerCase().includes('conflicto de concurrencia');
+
+      if (esCuentaNoDisponible) {
+        this.manejoErrorRealizado.set(true);
+        this.notificacion.mostrarAdvertencia(
+          'La cuenta ya no esta disponible.',
+          'Se actualizo el listado para mostrar el estado mas reciente.'
+        );
+        this.router.navigate(['/cuentas']);
+      }
+    });
+  }
+
   ngOnInit(): void {
+    this.manejoErrorRealizado.set(false);
+
+    if (!this.cuentaId) {
+      this.notificacion.mostrarAdvertencia(
+        'No se encontro el identificador de la cuenta.',
+        'Selecciona la cuenta nuevamente desde el listado.'
+      );
+      this.router.navigate(['/cuentas']);
+      return;
+    }
+
     this.service.limpiarCuenta();
-    this.service.cargarCuenta(this.cuentaId);
-    this.service.cargarMovimientos(this.cuentaId, 1, 10);
+    this.recargarDatos(1);
   }
 
   protected onOperacion(tipo: OperacionTipo): void {
+    if (this.operacionEnCurso()) {
+      return;
+    }
+
     if (tipo === 'extracto') {
       this.router.navigate(['/cuentas', this.cuentaId, 'extracto']);
       return;
@@ -61,22 +100,40 @@ export class CuentaDetailPage implements OnInit {
   }
 
   protected onConsignar(req: ConsignarRequest): void {
+    if (this.operacionEnCurso()) {
+      return;
+    }
+
+    this.operacionEnCurso.set(true);
     this.service.consignar(this.cuentaId, req).subscribe((result) => {
       if (result.isSuccess) {
         this.notificacion.mostrarExito('Consignacion realizada exitosamente.');
         this.operacionActiva.set(null);
-        this.service.cargarMovimientos(this.cuentaId, 1, 10);
+        this.recargarDatos(1);
+      } else {
+        this.recargarDatos(this.paginaMovimientos());
       }
+
+      this.operacionEnCurso.set(false);
     });
   }
 
   protected onRetirar(req: RetirarRequest): void {
+    if (this.operacionEnCurso()) {
+      return;
+    }
+
+    this.operacionEnCurso.set(true);
     this.service.retirar(this.cuentaId, req).subscribe((result) => {
       if (result.isSuccess) {
         this.notificacion.mostrarExito('Retiro realizado exitosamente.');
         this.operacionActiva.set(null);
-        this.service.cargarMovimientos(this.cuentaId, 1, 10);
+        this.recargarDatos(1);
+      } else {
+        this.recargarDatos(this.paginaMovimientos());
       }
+
+      this.operacionEnCurso.set(false);
     });
   }
 
@@ -87,5 +144,10 @@ export class CuentaDetailPage implements OnInit {
 
   protected onVolver(): void {
     this.router.navigate(['/cuentas']);
+  }
+
+  private recargarDatos(paginaMovimientos: number): void {
+    this.service.cargarCuenta(this.cuentaId);
+    this.service.cargarMovimientos(this.cuentaId, paginaMovimientos, 10);
   }
 }

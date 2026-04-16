@@ -12,27 +12,28 @@ export class NotificacionService {
     this.pushMessage('success', mensaje);
   }
 
-  mostrarError(mensaje: string): void {
-    this.pushMessage('error', mensaje);
+  mostrarError(mensaje: string, detalle?: string): void {
+    this.pushMessage('error', mensaje, detalle);
   }
 
-  mostrarAdvertencia(mensaje: string): void {
-    this.pushMessage('warning', mensaje);
+  mostrarAdvertencia(mensaje: string, detalle?: string): void {
+    this.pushMessage('warning', mensaje, detalle);
   }
 
-  mostrarInfo(mensaje: string): void {
-    this.pushMessage('info', mensaje);
+  mostrarInfo(mensaje: string, detalle?: string): void {
+    this.pushMessage('info', mensaje, detalle);
   }
 
   cerrar(id: string): void {
     this.messagesSignal.update((messages) => messages.filter((item) => item.id !== id));
   }
 
-  private pushMessage(type: NotificationType, mensaje: string): void {
+  private pushMessage(type: NotificationType, mensaje: string, detalle?: string): void {
     const item: NotificationMessage = {
       id: crypto.randomUUID(),
       type,
       mensaje,
+      detalle,
       createdAt: Date.now(),
       durationMs: environment.notificacionDuracion
     };

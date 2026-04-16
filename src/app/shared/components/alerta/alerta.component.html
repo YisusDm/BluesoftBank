@@ -1,0 +1,20 @@
+<section class="alerts" aria-live="assertive" aria-atomic="false">
+  @for (alerta of notificacionService.mensajes(); track alerta.id) {
+    <article class="alert-item" [class]="'alert-item alert-' + alerta.type" role="alert">
+      <div class="alert-content">
+        <span class="alert-message">{{ alerta.mensaje }}</span>
+        @if (alerta.detalle) {
+          <small class="alert-detail">{{ alerta.detalle }}</small>
+        }
+      </div>
+      <button
+        type="button"
+        class="close-button"
+        aria-label="Cerrar alerta"
+        (click)="notificacionService.cerrar(alerta.id)"
+      >
+        <i class="bi bi-x-lg" aria-hidden="true"></i>
+      </button>
+    </article>
+  }
+</section>

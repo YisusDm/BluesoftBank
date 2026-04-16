@@ -1,10 +1,5 @@
-.cuenta-row {
-  border-bottom: 1px solid #edf2fb;
-  transition: background 0.1s;
-}
-
-.cuenta-row:hover {
-  background: #f5f8ff;
+:host {
+  display: contents;
 }
 
 .cuenta-row__cell {
@@ -12,6 +7,11 @@
   font-size: 0.9rem;
   vertical-align: middle;
   white-space: nowrap;
+  border-bottom: 1px solid #edf2fb;
+}
+
+.cuenta-row__cell:hover {
+  background: #f5f8ff;
 }
 
 .cuenta-row__cell--monto {

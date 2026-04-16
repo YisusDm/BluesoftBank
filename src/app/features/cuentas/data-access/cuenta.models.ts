@@ -9,6 +9,7 @@ export interface CuentaDto {
   tipoCuenta: 'CuentaAhorro' | 'CuentaCorriente';
   saldo: number;
   ciudad: string;
+  fechaCreacion?: string;
   clienteNombre: string;
   clienteId: string;
   correoCliente?: string;

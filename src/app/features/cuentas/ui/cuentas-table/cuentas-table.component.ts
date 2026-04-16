@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { CuentaDto } from '../../data-access/cuenta.models';
-import { CuentaRowComponent } from '../cuenta-row/cuenta-row.component';
+import { CuentaTipoBadgeComponent } from '../cuenta-tipo-badge/cuenta-tipo-badge.component';
+import { CurrencyColombianPipe } from '../../../../shared/pipes/currency-colombian.pipe';
 
 @Component({
   selector: 'app-cuentas-table',
   standalone: true,
-  imports: [CuentaRowComponent],
+  imports: [CuentaTipoBadgeComponent, CurrencyColombianPipe],
   templateUrl: './cuentas-table.component.html',
   styleUrl: './cuentas-table.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush

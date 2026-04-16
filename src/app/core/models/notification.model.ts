@@ -4,6 +4,7 @@ export interface NotificationMessage {
   id: string;
   type: NotificationType;
   mensaje: string;
+  detalle?: string;
   createdAt: number;
   durationMs: number;
 }

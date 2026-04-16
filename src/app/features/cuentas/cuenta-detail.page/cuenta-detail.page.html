@@ -8,36 +8,106 @@
   } @else if (service.error() && !service.cuenta()) {
     <app-error-message [mensaje]="service.error()!" />
   } @else if (service.cuenta()) {
-    <div class="page__layout">
-      <aside class="page__aside">
+    <section class="detail-form" aria-label="Detalle de cuenta">
+      <header class="detail-form__header">
+        <div>
+          <p class="detail-form__eyebrow">Detalle de cuenta</p>
+          <h1 class="detail-form__title">{{ service.cuenta()!.numeroCuenta }}</h1>
+        </div>
         <app-saldo-card [saldo]="service.saldoFormateado()" />
-        <app-cuenta-info-card [cuenta]="service.cuenta()!" />
-        <app-operaciones-menu (operacionSeleccionada)="onOperacion($event)" />
-      </aside>
+      </header>
 
-      <main class="page__main">
-        @if (operacionActiva() === 'consignar') {
-          <app-consignar-form
-            (consignar)="onConsignar($event)"
-            (cancelar)="onCancelarOperacion()"
-          />
-        } @else if (operacionActiva() === 'retirar') {
-          <app-retirar-form
-            [saldoActual]="service.cuenta()!.saldo"
-            (retirar)="onRetirar($event)"
-            (cancelar)="onCancelarOperacion()"
-          />
-        }
+      <div class="detail-form__grid">
+        <div class="detail-field detail-field--full">
+          <span class="detail-field__label">ID de cuenta</span>
+          <input class="detail-field__input" [value]="service.cuenta()!.id" readonly />
+        </div>
 
-        @if (service.loading() && service.cuenta()) {
-          <app-loading-spinner />
-        } @else {
-          <app-movimientos-list
-            [datos]="service.movimientos()"
-            (paginaCambiada)="onPaginaMovimientosCambiada($event)"
+        <div class="detail-field">
+          <span class="detail-field__label">Numero de cuenta</span>
+          <input class="detail-field__input" [value]="service.cuenta()!.numeroCuenta" readonly />
+        </div>
+
+        <div class="detail-field">
+          <span class="detail-field__label">Tipo de cuenta</span>
+          <input class="detail-field__input" [value]="service.cuenta()!.tipoCuenta" readonly />
+        </div>
+
+        <div class="detail-field">
+          <span class="detail-field__label">Cliente</span>
+          <input class="detail-field__input" [value]="service.cuenta()!.clienteNombre" readonly />
+        </div>
+
+        <div class="detail-field">
+          <span class="detail-field__label">Correo del cliente</span>
+          <input class="detail-field__input" [value]="service.cuenta()!.correoCliente || '—'" readonly />
+        </div>
+
+        <div class="detail-field">
+          <span class="detail-field__label">Ciudad de la cuenta</span>
+          <input class="detail-field__input" [value]="service.cuenta()!.ciudad" readonly />
+        </div>
+
+        <div class="detail-field">
+          <span class="detail-field__label">Ciudad del cliente</span>
+          <input class="detail-field__input" [value]="service.cuenta()!.ciudadCliente || '—'" readonly />
+        </div>
+
+        <div class="detail-field">
+          <span class="detail-field__label">Identificador cliente</span>
+          <input class="detail-field__input" [value]="service.cuenta()!.clienteId" readonly />
+        </div>
+
+        <div class="detail-field">
+          <span class="detail-field__label">Fecha de creacion</span>
+          <input
+            class="detail-field__input"
+            [value]="service.cuenta()!.fechaCreacion || '—'"
+            readonly
           />
-        }
-      </main>
-    </div>
+        </div>
+
+        <div class="detail-field detail-field--full">
+          <span class="detail-field__label">Saldo actual</span>
+          <input class="detail-field__input detail-field__input--saldo" [value]="service.saldoFormateado()" readonly />
+        </div>
+      </div>
+
+      <div class="detail-form__actions" aria-label="Acciones de cuenta">
+        <button type="button" class="action-btn action-btn--consignar" (click)="onOperacion('consignar')" [disabled]="operacionEnCurso()">
+          Consignar
+        </button>
+        <button type="button" class="action-btn action-btn--retirar" (click)="onOperacion('retirar')" [disabled]="operacionEnCurso()">
+          Retirar
+        </button>
+        <button type="button" class="action-btn action-btn--extracto" (click)="onOperacion('extracto')" [disabled]="operacionEnCurso()">
+          Ver extracto
+        </button>
+      </div>
+    </section>
+
+    @if (operacionActiva() === 'consignar') {
+      <app-consignar-form
+        [enviando]="operacionEnCurso()"
+        (consignar)="onConsignar($event)"
+        (cancelar)="onCancelarOperacion()"
+      />
+    } @else if (operacionActiva() === 'retirar') {
+      <app-retirar-form
+        [saldoActual]="service.cuenta()!.saldo"
+        [enviando]="operacionEnCurso()"
+        (retirar)="onRetirar($event)"
+        (cancelar)="onCancelarOperacion()"
+      />
+    }
+
+    @if (service.loading() && service.cuenta()) {
+      <app-loading-spinner />
+    } @else {
+      <app-movimientos-list
+        [datos]="service.movimientos()"
+        (paginaCambiada)="onPaginaMovimientosCambiada($event)"
+      />
+    }
   }
 </div>
