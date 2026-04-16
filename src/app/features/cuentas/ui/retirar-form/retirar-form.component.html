@@ -1,0 +1,46 @@
+<form class="op-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h3 class="op-form__titulo">Nuevo Retiro</h3>
+
+  <p class="op-form__info">
+    Monto minimo: <strong>{{ MONTO_MINIMO | currencyColombian }}</strong>
+  </p>
+
+  <div class="op-form__campo">
+    <label class="op-form__label" for="monto-retirar">Monto (COP)</label>
+    <input
+      id="monto-retirar"
+      class="op-form__input"
+      [class.op-form__input--error]="montoInvalido || saldoInsuficiente"
+      type="number"
+      formControlName="monto"
+      [min]="MONTO_MINIMO"
+      placeholder="Min. 1.000.000"
+    />
+    @if (montoInvalido) {
+      <span class="op-form__error" role="alert">El monto minimo es {{ MONTO_MINIMO | currencyColombian }}</span>
+    }
+    @if (!montoInvalido && saldoInsuficiente) {
+      <span class="op-form__error" role="alert">Saldo insuficiente</span>
+    }
+  </div>
+
+  <div class="op-form__campo">
+    <label class="op-form__label" for="ciudad-retirar">Ciudad</label>
+    <input
+      id="ciudad-retirar"
+      class="op-form__input"
+      [class.op-form__input--error]="ciudadInvalida"
+      type="text"
+      formControlName="ciudad"
+      placeholder="Ej: Medellin"
+    />
+    @if (ciudadInvalida) {
+      <span class="op-form__error" role="alert">La ciudad es requerida</span>
+    }
+  </div>
+
+  <div class="op-form__acciones">
+    <button type="button" class="btn-cancelar" (click)="cancelar.emit()">Cancelar</button>
+    <button type="submit" class="btn-confirmar btn-confirmar--retirar">Retirar</button>
+  </div>
+</form>

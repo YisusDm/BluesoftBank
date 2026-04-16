@@ -1,0 +1,41 @@
+.cuenta-row {
+  border-bottom: 1px solid #edf2fb;
+  transition: background 0.1s;
+}
+
+.cuenta-row:hover {
+  background: #f5f8ff;
+}
+
+.cuenta-row__cell {
+  padding: 0.85rem 1rem;
+  font-size: 0.9rem;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.cuenta-row__cell--monto {
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.cuenta-row__cell--acciones {
+  text-align: right;
+}
+
+.btn-ver {
+  padding: 0.35rem 0.85rem;
+  border: 1px solid var(--color-primary);
+  border-radius: 0.375rem;
+  background: transparent;
+  color: var(--color-primary);
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.btn-ver:hover {
+  background: var(--color-primary);
+  color: #ffffff;
+}

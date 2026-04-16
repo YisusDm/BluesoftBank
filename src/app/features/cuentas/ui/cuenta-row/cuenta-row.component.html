@@ -1,0 +1,20 @@
+<tr class="cuenta-row">
+  <td class="cuenta-row__cell">{{ cuenta().numeroCuenta }}</td>
+  <td class="cuenta-row__cell">
+    <app-cuenta-tipo-badge [tipo]="cuenta().tipoCuenta" />
+  </td>
+  <td class="cuenta-row__cell">{{ cuenta().clienteNombre }}</td>
+  <td class="cuenta-row__cell">{{ cuenta().ciudad }}</td>
+  <td class="cuenta-row__cell cuenta-row__cell--monto">
+    {{ cuenta().saldo | currencyColombian }}
+  </td>
+  <td class="cuenta-row__cell cuenta-row__cell--acciones">
+    <button
+      class="btn-ver"
+      (click)="verDetalle.emit(cuenta().id)"
+      [attr.aria-label]="'Ver detalle de cuenta ' + cuenta().numeroCuenta"
+    >
+      Ver detalle
+    </button>
+  </td>
+</tr>

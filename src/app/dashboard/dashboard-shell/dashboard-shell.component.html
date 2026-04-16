@@ -1,0 +1,14 @@
+<div class="shell">
+  <header class="shell__header">
+    <a class="brand" routerLink="/cuentas">Bluesoft Bank</a>
+
+    <nav class="shell__nav" aria-label="Navegacion principal">
+      <app-nav-link ruta="/cuentas" etiqueta="Cuentas" />
+      <app-nav-link ruta="/reportes" etiqueta="Reportes" />
+    </nav>
+  </header>
+
+  <main class="shell__content">
+    <router-outlet />
+  </main>
+</div>

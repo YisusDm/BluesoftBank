@@ -1,0 +1,34 @@
+<section class="movimientos">
+  <h3 class="movimientos__titulo">Movimientos recientes</h3>
+
+  @if (!datos() || datos()!.movimientos.length === 0) {
+    <app-empty-state mensaje="No hay movimientos en esta cuenta." icono="bi bi-clipboard" />
+  } @else {
+    <div class="movimientos__table-wrapper">
+      <table class="movimientos__table" aria-label="Historial de movimientos">
+        <thead>
+          <tr>
+            <th scope="col">Tipo</th>
+            <th scope="col">Monto</th>
+            <th scope="col">Saldo resultante</th>
+            <th scope="col">Ciudad</th>
+            <th scope="col">Fecha</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (tx of datos()!.movimientos; track tx.id) {
+            <app-transaccion-row [transaccion]="tx" />
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <app-paginador
+      [paginaActual]="datos()!.pagina"
+      [totalRegistros]="datos()!.totalRegistros"
+      [tamano]="datos()!.tamano"
+      (paginaCambiada)="paginaCambiada.emit($event)"
+    />
+  }
+</section>

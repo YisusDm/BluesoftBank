@@ -1,0 +1,65 @@
+<div class="page">
+  <div class="page__header">
+    <h1 class="page__titulo">Reportes</h1>
+    <app-signalr-status-badge [estado]="service.estadoSignalR()" />
+  </div>
+
+  @if (service.ultimaActualizacion()) {
+    <p class="ultima-actualizacion">
+      Ultima actualizacion: {{ service.ultimaActualizacion() | fechaRelativa }}
+    </p>
+  }
+
+  <div class="tabs" role="tablist" aria-label="Pestanas de reportes">
+    <button
+      class="tab"
+      [class.tab--activo]="tabActiva() === 'top-clientes'"
+      (click)="onTabCambio('top-clientes')"
+      role="tab"
+      [attr.aria-selected]="tabActiva() === 'top-clientes'"
+    >
+      <i class="bi bi-trophy" aria-hidden="true"></i> Top Clientes
+    </button>
+    <button
+      class="tab"
+      [class.tab--activo]="tabActiva() === 'retiros-ciudad'"
+      (click)="onTabCambio('retiros-ciudad')"
+      role="tab"
+      [attr.aria-selected]="tabActiva() === 'retiros-ciudad'"
+    >
+      <i class="bi bi-geo-alt" aria-hidden="true"></i> Retiros Fuera de Ciudad
+    </button>
+  </div>
+
+  @if (tabActiva() === 'top-clientes') {
+    <div class="tab-panel">
+      <div class="tab-panel__filtros">
+        <app-reporte-filtros (filtrosChanged)="onFiltrosChanged($event)" />
+      </div>
+
+      @if (service.loading()) {
+        <app-loading-spinner />
+      } @else if (service.error()) {
+        <app-error-message [mensaje]="service.error()!" />
+      } @else {
+        <app-top-clientes-table [clientes]="service.topClientes()" />
+      }
+    </div>
+  }
+
+  @if (tabActiva() === 'retiros-ciudad') {
+    <div class="tab-panel">
+      <p class="tab-panel__desc">
+        Clientes con retiros mayores a $1.000.000 fuera de su ciudad de origen.
+      </p>
+
+      @if (service.loading()) {
+        <app-loading-spinner />
+      } @else if (service.error()) {
+        <app-error-message [mensaje]="service.error()!" />
+      } @else {
+        <app-retiros-ciudad-table [retiros]="service.retirosFueraCiudad()" />
+      }
+    </div>
+  }
+</div>

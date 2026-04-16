@@ -1,0 +1,29 @@
+<div class="extracto-table-wrapper">
+  <table class="extracto-table" aria-label="Transacciones del extracto">
+    <thead>
+      <tr>
+        <th scope="col">Tipo</th>
+        <th scope="col">Monto</th>
+        <th scope="col">Saldo resultante</th>
+        <th scope="col">Ciudad</th>
+        <th scope="col">Fecha</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (tx of extracto().movimientos; track tx.id) {
+        <tr [class.tx--consignacion]="tx.tipo === TipoTransaccion.Consignacion" [class.tx--retiro]="tx.tipo === TipoTransaccion.Retiro">
+          <td class="extracto-table__cell">
+            @if (tx.tipo === TipoTransaccion.Consignacion) { ↓ } @else { ↑ }
+            {{ tx.tipo }}
+          </td>
+          <td class="extracto-table__cell" [class.monto--pos]="tx.tipo === TipoTransaccion.Consignacion" [class.monto--neg]="tx.tipo === TipoTransaccion.Retiro">
+            {{ (tx.tipo === TipoTransaccion.Retiro ? -tx.monto : tx.monto) | currencyColombian }}
+          </td>
+          <td class="extracto-table__cell">{{ tx.saldoResultante | currencyColombian }}</td>
+          <td class="extracto-table__cell">{{ tx.ciudad }}</td>
+          <td class="extracto-table__cell fecha">{{ tx.fecha | fechaRelativa }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

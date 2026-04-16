@@ -1,0 +1,35 @@
+.movimientos {
+  background: #ffffff;
+  border: 1px solid #dce6f5;
+  border-radius: 0.75rem;
+  padding: 1.25rem 1.5rem;
+}
+
+.movimientos__titulo {
+  margin: 0 0 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.movimientos__table-wrapper {
+  overflow-x: auto;
+}
+
+.movimientos__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.movimientos__table th {
+  padding: 0.6rem 1rem;
+  text-align: left;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #4a5a7a;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: #f5f8ff;
+  border-bottom: 1px solid #dce6f5;
+  white-space: nowrap;
+}

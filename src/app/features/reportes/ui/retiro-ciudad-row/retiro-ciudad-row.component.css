@@ -1,0 +1,32 @@
+.rc-row {
+  border-bottom: 1px solid #edf2fb;
+  transition: background 0.1s;
+}
+
+.rc-row:hover { background: #f9fbff; }
+
+.rc-row__cell {
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  vertical-align: middle;
+}
+
+.rc-row__cell--ciudad { color: #6b7a99; }
+.rc-row__cell--ops { text-align: center; }
+.rc-row__cell--total { font-weight: 600; color: #c62828; text-align: right; }
+
+.ciudades {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.ciudad-tag {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  background: #fff3e0;
+  border: 1px solid #ffcc80;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  color: #e65100;
+}

@@ -1,0 +1,50 @@
+<form class="crear-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="crear-form__grid">
+    <div class="crear-form__campo">
+      <label class="crear-form__label" for="numero-corriente">Numero de cuenta</label>
+      <input id="numero-corriente" class="crear-form__input" [class.crear-form__input--error]="invalido('numeroCuenta')" formControlName="numeroCuenta" placeholder="Ej: 00210023456" />
+      @if (invalido('numeroCuenta')) { <span class="crear-form__error">Minimo 5 caracteres</span> }
+    </div>
+
+    <div class="crear-form__campo">
+      <label class="crear-form__label" for="ciudad-corriente">Ciudad de la cuenta</label>
+      <input id="ciudad-corriente" class="crear-form__input" [class.crear-form__input--error]="invalido('ciudad')" formControlName="ciudad" placeholder="Ej: Cali" />
+      @if (invalido('ciudad')) { <span class="crear-form__error">La ciudad es requerida</span> }
+    </div>
+
+    <div class="crear-form__campo">
+      <label class="crear-form__label" for="nombre-corriente">Razon social / Nombre</label>
+      <input id="nombre-corriente" class="crear-form__input" [class.crear-form__input--error]="invalido('nombre')" formControlName="nombre" placeholder="Nombre de la empresa" />
+      @if (invalido('nombre')) { <span class="crear-form__error">Minimo 3 caracteres</span> }
+    </div>
+
+    <div class="crear-form__campo">
+      <label class="crear-form__label" for="correo-corriente">Correo electronico</label>
+      <input id="correo-corriente" class="crear-form__input" [class.crear-form__input--error]="invalido('correo')" type="email" formControlName="correo" placeholder="empresa@email.com" />
+      @if (invalido('correo')) { <span class="crear-form__error">Correo invalido</span> }
+    </div>
+
+    <div class="crear-form__campo">
+      <label class="crear-form__label" for="ciudad-cliente-corriente">Ciudad del cliente</label>
+      <input id="ciudad-cliente-corriente" class="crear-form__input" [class.crear-form__input--error]="invalido('ciudadCliente')" formControlName="ciudadCliente" placeholder="Ej: Barranquilla" />
+      @if (invalido('ciudadCliente')) { <span class="crear-form__error">La ciudad es requerida</span> }
+    </div>
+
+    <div class="crear-form__campo">
+      <label class="crear-form__label" for="nit-corriente">NIT</label>
+      <input id="nit-corriente" class="crear-form__input" [class.crear-form__input--error]="invalido('nit')" formControlName="nit" placeholder="Ej: 900123456-7" />
+      @if (invalido('nit')) { <span class="crear-form__error">NIT invalido</span> }
+    </div>
+
+    <div class="crear-form__campo crear-form__campo--full">
+      <label class="crear-form__label" for="cupo-corriente">Cupo de sobregiro (COP)</label>
+      <input id="cupo-corriente" class="crear-form__input" [class.crear-form__input--error]="invalido('cupoSobregiro')" type="number" min="1" formControlName="cupoSobregiro" placeholder="Ej: 5000000" />
+      @if (invalido('cupoSobregiro')) { <span class="crear-form__error">El cupo debe ser mayor a 0</span> }
+    </div>
+  </div>
+
+  <div class="crear-form__acciones">
+    <button type="button" class="btn-cancelar" (click)="cancelar.emit()">Cancelar</button>
+    <button type="submit" class="btn-crear">Crear Cuenta Corriente</button>
+  </div>
+</form>

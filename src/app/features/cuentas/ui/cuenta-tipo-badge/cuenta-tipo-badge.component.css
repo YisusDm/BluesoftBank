@@ -1,0 +1,20 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.badge--ahorro {
+  background: #dff3e3;
+  color: #1a6a2e;
+}
+
+.badge--corriente {
+  background: #ddeeff;
+  color: #1a3e6a;
+}

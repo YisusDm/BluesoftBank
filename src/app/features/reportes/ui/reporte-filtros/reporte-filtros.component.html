@@ -1,0 +1,33 @@
+<form class="filtros" [formGroup]="form" (ngSubmit)="onAplicar()">
+  <div class="filtros__campo">
+    <label class="filtros__label" for="mes-reporte">Mes</label>
+    <select id="mes-reporte" class="filtros__select" formControlName="mes">
+      @for (m of meses; track m.valor) {
+        <option [value]="m.valor">{{ m.nombre }}</option>
+      }
+    </select>
+  </div>
+
+  <div class="filtros__campo">
+    <label class="filtros__label" for="anio-reporte">Año</label>
+    <select id="anio-reporte" class="filtros__select" formControlName="anio">
+      @for (a of anios; track a) {
+        <option [value]="a">{{ a }}</option>
+      }
+    </select>
+  </div>
+
+  <div class="filtros__campo">
+    <label class="filtros__label" for="top-reporte">Top</label>
+    <input
+      id="top-reporte"
+      class="filtros__select"
+      type="number"
+      min="1"
+      max="100"
+      formControlName="top"
+    />
+  </div>
+
+  <button type="submit" class="btn-aplicar">Aplicar</button>
+</form>

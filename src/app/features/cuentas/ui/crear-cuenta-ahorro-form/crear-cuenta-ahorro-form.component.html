@@ -1,0 +1,44 @@
+<form class="crear-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="crear-form__grid">
+    <div class="crear-form__campo">
+      <label class="crear-form__label" for="numero-ahorro">Numero de cuenta</label>
+      <input id="numero-ahorro" class="crear-form__input" [class.crear-form__input--error]="invalido('numeroCuenta')" formControlName="numeroCuenta" placeholder="Ej: 00110023456" />
+      @if (invalido('numeroCuenta')) { <span class="crear-form__error">Minimo 5 caracteres</span> }
+    </div>
+
+    <div class="crear-form__campo">
+      <label class="crear-form__label" for="ciudad-ahorro">Ciudad de la cuenta</label>
+      <input id="ciudad-ahorro" class="crear-form__input" [class.crear-form__input--error]="invalido('ciudad')" formControlName="ciudad" placeholder="Ej: Bogota" />
+      @if (invalido('ciudad')) { <span class="crear-form__error">La ciudad es requerida</span> }
+    </div>
+
+    <div class="crear-form__campo">
+      <label class="crear-form__label" for="nombre-ahorro">Nombre del cliente</label>
+      <input id="nombre-ahorro" class="crear-form__input" [class.crear-form__input--error]="invalido('nombre')" formControlName="nombre" placeholder="Nombre completo" />
+      @if (invalido('nombre')) { <span class="crear-form__error">Minimo 3 caracteres</span> }
+    </div>
+
+    <div class="crear-form__campo">
+      <label class="crear-form__label" for="correo-ahorro">Correo electronico</label>
+      <input id="correo-ahorro" class="crear-form__input" [class.crear-form__input--error]="invalido('correo')" type="email" formControlName="correo" placeholder="cliente@email.com" />
+      @if (invalido('correo')) { <span class="crear-form__error">Correo invalido</span> }
+    </div>
+
+    <div class="crear-form__campo">
+      <label class="crear-form__label" for="ciudad-cliente-ahorro">Ciudad del cliente</label>
+      <input id="ciudad-cliente-ahorro" class="crear-form__input" [class.crear-form__input--error]="invalido('ciudadCliente')" formControlName="ciudadCliente" placeholder="Ej: Medellin" />
+      @if (invalido('ciudadCliente')) { <span class="crear-form__error">La ciudad es requerida</span> }
+    </div>
+
+    <div class="crear-form__campo">
+      <label class="crear-form__label" for="cedula-ahorro">Cedula</label>
+      <input id="cedula-ahorro" class="crear-form__input" [class.crear-form__input--error]="invalido('cedula')" formControlName="cedula" placeholder="Ej: 12345678" />
+      @if (invalido('cedula')) { <span class="crear-form__error">Cedula invalida</span> }
+    </div>
+  </div>
+
+  <div class="crear-form__acciones">
+    <button type="button" class="btn-cancelar" (click)="cancelar.emit()">Cancelar</button>
+    <button type="submit" class="btn-crear">Crear Cuenta de Ahorro</button>
+  </div>
+</form>

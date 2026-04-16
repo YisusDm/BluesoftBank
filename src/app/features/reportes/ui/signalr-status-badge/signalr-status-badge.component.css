@@ -1,0 +1,50 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.badge__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.badge--conectado {
+  background: #dff3e3;
+  color: #1a6a2e;
+}
+
+.badge--conectado .badge__dot {
+  background: #2e7d32;
+  animation: pulse 1.5s infinite;
+}
+
+.badge--reconectando {
+  background: #fff8e1;
+  color: #a56200;
+}
+
+.badge--reconectando .badge__dot {
+  background: #f9a825;
+}
+
+.badge--desconectado {
+  background: #f3f3f3;
+  color: #777;
+}
+
+.badge--desconectado .badge__dot {
+  background: #aaa;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}

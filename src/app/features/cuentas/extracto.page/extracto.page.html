@@ -1,0 +1,39 @@
+<div class="page">
+  <div class="page__header">
+    <button class="btn-volver" (click)="onVolver()" aria-label="Volver al detalle">← Volver</button>
+    <h1 class="page__titulo">Extracto Mensual</h1>
+  </div>
+
+  <form class="filtros" [formGroup]="form" (ngSubmit)="onConsultar()">
+    <div class="filtros__campo">
+      <label class="filtros__label" for="mes-extracto">Mes</label>
+      <select id="mes-extracto" class="filtros__select" formControlName="mes">
+        @for (m of meses; track m.valor) {
+          <option [value]="m.valor">{{ m.nombre }}</option>
+        }
+      </select>
+    </div>
+    <div class="filtros__campo">
+      <label class="filtros__label" for="anio-extracto">Año</label>
+      <select id="anio-extracto" class="filtros__select" formControlName="anio">
+        @for (a of anios(); track a) {
+          <option [value]="a">{{ a }}</option>
+        }
+      </select>
+    </div>
+    <button type="submit" class="btn-consultar">Consultar</button>
+  </form>
+
+  @if (service.loading()) {
+    <app-loading-spinner />
+  } @else if (service.error()) {
+    <app-error-message [mensaje]="service.error()!" />
+  } @else if (!service.extracto()) {
+    <app-empty-state mensaje="Selecciona un periodo para ver el extracto." icono="bi bi-file-text" />
+  } @else if (service.extracto()!.movimientos.length === 0) {
+    <app-empty-state mensaje="No hay transacciones en este periodo." icono="bi bi-clipboard" />
+  } @else {
+    <app-extracto-summary [extracto]="service.extracto()!" />
+    <app-extracto-table [extracto]="service.extracto()!" />
+  }
+</div>

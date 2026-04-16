@@ -1,0 +1,19 @@
+<tr class="tx-row" [class.tx-row--consignacion]="transaccion().tipo === TipoTransaccion.Consignacion" [class.tx-row--retiro]="transaccion().tipo === TipoTransaccion.Retiro">
+  <td class="tx-row__cell">
+    <span class="tx-row__icono" aria-hidden="true">
+      @if (transaccion().tipo === TipoTransaccion.Consignacion) { ↓ } @else { ↑ }
+    </span>
+    {{ transaccion().tipo }}
+  </td>
+  <td class="tx-row__cell tx-row__cell--monto" [class.tx-row__cell--positivo]="transaccion().tipo === TipoTransaccion.Consignacion" [class.tx-row__cell--negativo]="transaccion().tipo === TipoTransaccion.Retiro">
+    {{ (transaccion().tipo === TipoTransaccion.Retiro ? -transaccion().monto : transaccion().monto) | currencyColombian }}
+  </td>
+  <td class="tx-row__cell">{{ transaccion().saldoResultante | currencyColombian }}</td>
+  <td class="tx-row__cell">{{ transaccion().ciudad }}</td>
+  <td class="tx-row__cell tx-row__cell--fecha">{{ transaccion().fecha | fechaRelativa }}</td>
+  <td class="tx-row__cell">
+    @if (transaccion().esFueraDeCiudadOrigen) {
+      <span class="badge-fuera" title="Retiro fuera de ciudad de origen">Fuera de ciudad</span>
+    }
+  </td>
+</tr>

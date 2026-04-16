@@ -1,0 +1,13 @@
+<span
+  class="badge"
+  [class.badge--conectado]="estado() === 'conectado'"
+  [class.badge--reconectando]="estado() === 'reconectando'"
+  [class.badge--desconectado]="estado() === 'desconectado'"
+  [attr.title]="'SignalR: ' + estado()"
+  aria-live="polite"
+>
+  <span class="badge__dot" aria-hidden="true"></span>
+  @if (estado() === 'conectado') { En vivo }
+  @else if (estado() === 'reconectando') { Reconectando... }
+  @else { Desconectado }
+</span>

@@ -1,0 +1,57 @@
+.tx-row {
+  border-bottom: 1px solid #edf2fb;
+  transition: background 0.1s;
+}
+
+.tx-row:hover {
+  background: #f9fbff;
+}
+
+.tx-row__cell {
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.tx-row__icono {
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-right: 0.25rem;
+}
+
+.tx-row--consignacion .tx-row__icono {
+  color: #2e7d32;
+}
+
+.tx-row--retiro .tx-row__icono {
+  color: #c62828;
+}
+
+.tx-row__cell--monto {
+  font-weight: 600;
+}
+
+.tx-row__cell--positivo {
+  color: #2e7d32;
+}
+
+.tx-row__cell--negativo {
+  color: #c62828;
+}
+
+.tx-row__cell--fecha {
+  color: #6b7a99;
+  font-size: 0.82rem;
+}
+
+.badge-fuera {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  background: #fff3e0;
+  border: 1px solid #ffcc80;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  color: #e65100;
+  font-weight: 500;
+}

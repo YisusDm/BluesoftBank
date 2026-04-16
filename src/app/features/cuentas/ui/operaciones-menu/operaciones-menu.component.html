@@ -1,0 +1,11 @@
+<div class="operaciones-menu" role="group" aria-label="Operaciones disponibles">
+  <button class="op-btn op-btn--consignar" (click)="operacionSeleccionada.emit('consignar')">
+    <span aria-hidden="true">↓</span> Consignar
+  </button>
+  <button class="op-btn op-btn--retirar" (click)="operacionSeleccionada.emit('retirar')">
+    <span aria-hidden="true">↑</span> Retirar
+  </button>
+  <button class="op-btn op-btn--extracto" (click)="operacionSeleccionada.emit('extracto')">
+    <i class="bi bi-file-text" aria-hidden="true"></i> Extracto
+  </button>
+</div>

@@ -1,0 +1,22 @@
+@if (clientes().length === 0) {
+  <app-empty-state mensaje="No hay datos para el periodo seleccionado." icono="bi bi-trophy" />
+} @else {
+  <div class="table-wrapper">
+    <table class="table" aria-label="Ranking de clientes por transacciones">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Cliente</th>
+          <th scope="col" class="col-txs">Transacciones</th>
+          <th scope="col" class="col-txs">Consignaciones</th>
+          <th scope="col" class="col-txs">Retiros</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (cliente of clientes(); track cliente.clienteId; let i = $index) {
+          <app-top-cliente-row [cliente]="cliente" [posicion]="i + 1" />
+        }
+      </tbody>
+    </table>
+  </div>
+}

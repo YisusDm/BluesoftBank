@@ -1,0 +1,24 @@
+<div class="ex-summary">
+  <h3 class="ex-summary__titulo">
+    Extracto {{ tituloPeriodo() }}
+  </h3>
+
+  <div class="ex-summary__grid">
+    <div class="ex-summary__item">
+      <span class="ex-summary__label">Saldo inicial</span>
+      <span class="ex-summary__valor">{{ extracto().saldoInicial | currencyColombian }}</span>
+    </div>
+    <div class="ex-summary__item ex-summary__item--positivo">
+      <span class="ex-summary__label">Total consignaciones</span>
+      <span class="ex-summary__valor">+ {{ extracto().totalConsignaciones | currencyColombian }}</span>
+    </div>
+    <div class="ex-summary__item ex-summary__item--negativo">
+      <span class="ex-summary__label">Total retiros</span>
+      <span class="ex-summary__valor">- {{ extracto().totalRetiros | currencyColombian }}</span>
+    </div>
+    <div class="ex-summary__item ex-summary__item--final">
+      <span class="ex-summary__label">Saldo final</span>
+      <span class="ex-summary__valor">{{ extracto().saldoFinal | currencyColombian }}</span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<div class="page">
+  <div class="page__header">
+    <h1 class="page__titulo">Cuentas</h1>
+    <button class="btn-nueva" (click)="onAbrirDialog()" aria-label="Crear nueva cuenta">
+      + Nueva cuenta
+    </button>
+  </div>
+
+  @if (service.loading()) {
+    <app-loading-spinner />
+  } @else if (service.error()) {
+    <app-error-message [mensaje]="service.error()!" />
+  } @else if (service.cuentas().length === 0) {
+    <app-empty-state mensaje="No hay cuentas registradas." icono="bi bi-bank" />
+  } @else {
+    <app-cuentas-table [cuentas]="service.cuentas()" (verDetalle)="onVerDetalle($event)" />
+    <app-paginador
+      [paginaActual]="paginaActual()"
+      [totalRegistros]="service.totalRegistros()"
+      [tamano]="TAMANO"
+      (paginaCambiada)="onPaginaCambiada($event)"
+    />
+  }
+
+  @if (mostrarDialog()) {
+    <div class="dialog-overlay" (click)="onCerrarDialog()">
+      <div class="dialog" role="dialog" aria-modal="true" aria-label="Crear nueva cuenta" (click)="$event.stopPropagation()">
+        <div class="dialog__header">
+          <h2 class="dialog__titulo">Nueva Cuenta</h2>
+          <button class="dialog__cerrar" (click)="onCerrarDialog()" aria-label="Cerrar"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+        </div>
+
+        <div class="dialog__body">
+          <app-crear-cuenta-tipo-selector [(tipo)]="tipoSeleccionado" />
+
+          <div class="dialog__form">
+            @if (tipoSeleccionado() === 'CuentaAhorro') {
+              <app-crear-cuenta-ahorro-form
+                (crear)="onCrearAhorro($event)"
+                (cancelar)="onCerrarDialog()"
+              />
+            } @else {
+              <app-crear-cuenta-corriente-form
+                (crear)="onCrearCorriente($event)"
+                (cancelar)="onCerrarDialog()"
+              />
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

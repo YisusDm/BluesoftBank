@@ -1,0 +1,15 @@
+<tr class="top-row">
+  <td class="top-row__cell top-row__cell--pos">
+    <span class="posicion" [class.posicion--top3]="posicion() <= 3">{{ posicion() }}</span>
+  </td>
+  <td class="top-row__cell">{{ cliente().nombre }}</td>
+  <td class="top-row__cell top-row__cell--txs">
+    <span class="txs-badge">{{ cliente().totalTransacciones }}</span>
+  </td>
+  <td class="top-row__cell top-row__cell--txs">
+    <span class="txs-badge">{{ cliente().totalConsignaciones }}</span>
+  </td>
+  <td class="top-row__cell top-row__cell--txs">
+    <span class="txs-badge">{{ cliente().totalRetiros }}</span>
+  </td>
+</tr>

@@ -1,0 +1,22 @@
+@if (retiros().length === 0) {
+  <app-empty-state mensaje="No hay retiros fuera de ciudad registrados." icono="bi bi-geo-alt" />
+} @else {
+  <div class="table-wrapper">
+    <table class="table" aria-label="Clientes con retiros fuera de su ciudad de origen">
+      <thead>
+        <tr>
+          <th scope="col">Cliente</th>
+          <th scope="col">Ciudad origen</th>
+          <th scope="col" class="col-center">Operaciones</th>
+          <th scope="col" class="col-right">Total retiros</th>
+          <th scope="col">Ultimo retiro</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (retiro of retiros(); track retiro.clienteId) {
+          <app-retiro-ciudad-row [retiro]="retiro" />
+        }
+      </tbody>
+    </table>
+  </div>
+}

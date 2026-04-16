@@ -1,0 +1,36 @@
+@if (totalRegistros() > tamano()) {
+  <nav class="paginador" aria-label="Paginacion">
+    <button
+      class="paginador__btn"
+      (click)="ir(paginaActual() - 1)"
+      [disabled]="!tienePrevio()"
+      aria-label="Pagina anterior"
+    >
+      ‹
+    </button>
+
+    @for (p of paginas(); track p) {
+      <button
+        class="paginador__btn"
+        [class.paginador__btn--activo]="p === paginaActual()"
+        (click)="ir(p)"
+        [attr.aria-current]="p === paginaActual() ? 'page' : null"
+      >
+        {{ p }}
+      </button>
+    }
+
+    <button
+      class="paginador__btn"
+      (click)="ir(paginaActual() + 1)"
+      [disabled]="!tieneSiguiente()"
+      aria-label="Pagina siguiente"
+    >
+      ›
+    </button>
+
+    <span class="paginador__info">
+      {{ totalRegistros() }} registro{{ totalRegistros() !== 1 ? 's' : '' }}
+    </span>
+  </nav>
+}

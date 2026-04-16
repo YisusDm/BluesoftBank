@@ -1,0 +1,43 @@
+<div class="page">
+  <button class="btn-volver" (click)="onVolver()" aria-label="Volver a cuentas">
+    ← Volver
+  </button>
+
+  @if (service.loading() && !service.cuenta()) {
+    <app-loading-spinner />
+  } @else if (service.error() && !service.cuenta()) {
+    <app-error-message [mensaje]="service.error()!" />
+  } @else if (service.cuenta()) {
+    <div class="page__layout">
+      <aside class="page__aside">
+        <app-saldo-card [saldo]="service.saldoFormateado()" />
+        <app-cuenta-info-card [cuenta]="service.cuenta()!" />
+        <app-operaciones-menu (operacionSeleccionada)="onOperacion($event)" />
+      </aside>
+
+      <main class="page__main">
+        @if (operacionActiva() === 'consignar') {
+          <app-consignar-form
+            (consignar)="onConsignar($event)"
+            (cancelar)="onCancelarOperacion()"
+          />
+        } @else if (operacionActiva() === 'retirar') {
+          <app-retirar-form
+            [saldoActual]="service.cuenta()!.saldo"
+            (retirar)="onRetirar($event)"
+            (cancelar)="onCancelarOperacion()"
+          />
+        }
+
+        @if (service.loading() && service.cuenta()) {
+          <app-loading-spinner />
+        } @else {
+          <app-movimientos-list
+            [datos]="service.movimientos()"
+            (paginaCambiada)="onPaginaMovimientosCambiada($event)"
+          />
+        }
+      </main>
+    </div>
+  }
+</div>

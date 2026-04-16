@@ -1,0 +1,35 @@
+@import '@angular/material/prebuilt-themes/azure-blue.css';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+@import "tailwindcss";
+
+:root {
+  color-scheme: light;
+  --font-base: 'Segoe UI', 'Noto Sans', 'Liberation Sans', sans-serif;
+  --color-primary: #0d58bd;
+  --color-primary-dark: #0b2a5a;
+  --color-primary-light: #d9e8ff;
+  --text-primary: #102949;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font-base);
+  color: var(--text-primary);
+  background-color: #f4f6fb;
+}
+
+/* Sobrescribir colores de Angular Material */
+.mat-mdc-raised-button.mat-primary,
+.mat-mdc-fab.mat-primary,
+.mat-mdc-mini-fab.mat-primary {
+  background-color: var(--color-primary);
+}

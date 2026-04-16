@@ -1,0 +1,43 @@
+.paginador {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.75rem 0;
+  flex-wrap: wrap;
+}
+
+.paginador__btn {
+  min-width: 36px;
+  height: 36px;
+  padding: 0 0.5rem;
+  border: 1px solid #c8d6ee;
+  border-radius: 0.375rem;
+  background: #ffffff;
+  color: var(--color-primary);
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.paginador__btn:hover:not(:disabled) {
+  background: #eef4ff;
+  border-color: var(--color-primary);
+}
+
+.paginador__btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.paginador__btn--activo {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #ffffff;
+}
+
+.paginador__info {
+  margin-left: 0.5rem;
+  font-size: 0.8rem;
+  color: #6b7a99;
+}

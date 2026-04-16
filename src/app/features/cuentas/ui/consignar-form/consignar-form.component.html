@@ -1,0 +1,39 @@
+<form class="op-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h3 class="op-form__titulo">Nueva Consignacion</h3>
+
+  <div class="op-form__campo">
+    <label class="op-form__label" for="monto-consignar">Monto (COP)</label>
+    <input
+      id="monto-consignar"
+      class="op-form__input"
+      [class.op-form__input--error]="montoInvalido"
+      type="number"
+      formControlName="monto"
+      min="1"
+      placeholder="Ej: 500000"
+    />
+    @if (montoInvalido) {
+      <span class="op-form__error" role="alert">El monto debe ser mayor a 0</span>
+    }
+  </div>
+
+  <div class="op-form__campo">
+    <label class="op-form__label" for="ciudad-consignar">Ciudad</label>
+    <input
+      id="ciudad-consignar"
+      class="op-form__input"
+      [class.op-form__input--error]="ciudadInvalida"
+      type="text"
+      formControlName="ciudad"
+      placeholder="Ej: Bogota"
+    />
+    @if (ciudadInvalida) {
+      <span class="op-form__error" role="alert">La ciudad es requerida</span>
+    }
+  </div>
+
+  <div class="op-form__acciones">
+    <button type="button" class="btn-cancelar" (click)="cancelar.emit()">Cancelar</button>
+    <button type="submit" class="btn-confirmar btn-confirmar--consignar">Consignar</button>
+  </div>
+</form>

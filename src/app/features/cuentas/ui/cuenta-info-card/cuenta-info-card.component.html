@@ -1,0 +1,24 @@
+<div class="info-card">
+  <div class="info-card__row">
+    <span class="info-card__label">Numero de cuenta</span>
+    <span class="info-card__value">{{ cuenta().numeroCuenta }}</span>
+  </div>
+  <div class="info-card__row">
+    <span class="info-card__label">Tipo</span>
+    <app-cuenta-tipo-badge [tipo]="cuenta().tipoCuenta" />
+  </div>
+  <div class="info-card__row">
+    <span class="info-card__label">Cliente</span>
+    <span class="info-card__value">{{ cuenta().clienteNombre }}</span>
+  </div>
+  <div class="info-card__row">
+    <span class="info-card__label">Ciudad de la cuenta</span>
+    <span class="info-card__value">{{ cuenta().ciudad }}</span>
+  </div>
+  @if (cuenta().ciudadCliente) {
+    <div class="info-card__row">
+      <span class="info-card__label">Ciudad del cliente</span>
+      <span class="info-card__value">{{ cuenta().ciudadCliente }}</span>
+    </div>
+  }
+</div>

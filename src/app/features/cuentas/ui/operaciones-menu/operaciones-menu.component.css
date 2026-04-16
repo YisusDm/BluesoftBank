@@ -1,0 +1,48 @@
+.operaciones-menu {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.op-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.25rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.op-btn--consignar {
+  background: #dff3e3;
+  color: #1a6a2e;
+  border-color: #a8dfb5;
+}
+
+.op-btn--consignar:hover {
+  background: #c7eccc;
+}
+
+.op-btn--retirar {
+  background: #fff0e8;
+  color: #a83200;
+  border-color: #f5c6a0;
+}
+
+.op-btn--retirar:hover {
+  background: #ffe5d0;
+}
+
+.op-btn--extracto {
+  background: #eef4ff;
+  color: var(--color-primary);
+  border-color: #c5d9f7;
+}
+
+.op-btn--extracto:hover {
+  background: #dce9ff;
+}

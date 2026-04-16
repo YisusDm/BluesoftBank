@@ -1,0 +1,32 @@
+.tipo-selector {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.tipo-selector__btn {
+  flex: 1;
+  min-width: 160px;
+  padding: 0.9rem 1rem;
+  border: 2px solid #c8d6ee;
+  border-radius: 0.6rem;
+  background: #ffffff;
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  text-align: center;
+}
+
+.tipo-selector__btn:hover {
+  border-color: var(--color-primary);
+  background: #eef4ff;
+}
+
+.tipo-selector__btn--activo {
+  border-color: var(--color-primary);
+  background: #eef4ff;
+  color: var(--color-primary);
+  font-weight: 700;
+}

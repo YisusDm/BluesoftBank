@@ -1,0 +1,31 @@
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 0.75rem;
+  border: 1px solid #dce6f5;
+  background: #ffffff;
+}
+
+.cuentas-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.cuentas-table thead {
+  background: #f0f5ff;
+}
+
+.cuentas-table th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: #4a5a7a;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.cuentas-table th:last-child {
+  text-align: right;
+}

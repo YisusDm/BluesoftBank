@@ -1,0 +1,71 @@
+.crear-form__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.crear-form__campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.crear-form__label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #4a5a7a;
+}
+
+.crear-form__input {
+  padding: 0.55rem 0.85rem;
+  border: 1px solid #c8d6ee;
+  border-radius: 0.4rem;
+  font-size: 0.88rem;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.crear-form__input:focus {
+  border-color: var(--color-primary);
+}
+
+.crear-form__input--error {
+  border-color: #e53935;
+}
+
+.crear-form__error {
+  font-size: 0.75rem;
+  color: #e53935;
+}
+
+.crear-form__acciones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.btn-cancelar {
+  padding: 0.5rem 1rem;
+  border: 1px solid #c8d6ee;
+  border-radius: 0.4rem;
+  background: transparent;
+  color: #4a5a7a;
+  cursor: pointer;
+  font-size: 0.88rem;
+}
+
+.btn-crear {
+  padding: 0.5rem 1.4rem;
+  border: none;
+  border-radius: 0.4rem;
+  background: var(--color-primary);
+  color: #ffffff;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-crear:hover {
+  background: var(--color-primary-dark);
+}

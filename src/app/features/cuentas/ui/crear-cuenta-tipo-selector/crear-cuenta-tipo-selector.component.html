@@ -1,0 +1,18 @@
+<div class="tipo-selector" role="group" aria-label="Tipo de cuenta">
+  <button
+    type="button"
+    class="tipo-selector__btn"
+    [class.tipo-selector__btn--activo]="tipo() === 'CuentaAhorro'"
+    (click)="tipo.set('CuentaAhorro')"
+  >
+    <i class="bi bi-piggy-bank" aria-hidden="true"></i> Cuenta de Ahorro
+  </button>
+  <button
+    type="button"
+    class="tipo-selector__btn"
+    [class.tipo-selector__btn--activo]="tipo() === 'CuentaCorriente'"
+    (click)="tipo.set('CuentaCorriente')"
+  >
+    <i class="bi bi-building" aria-hidden="true"></i> Cuenta Corriente
+  </button>
+</div>

@@ -1,0 +1,74 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.page__header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn-volver {
+  padding: 0.4rem 0.85rem;
+  border: 1px solid #c8d6ee;
+  border-radius: 0.4rem;
+  background: transparent;
+  color: var(--color-primary);
+  font-size: 0.88rem;
+  cursor: pointer;
+}
+
+.btn-volver:hover { background: #eef4ff; }
+
+.page__titulo {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.filtros {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 1rem 1.25rem;
+  background: #ffffff;
+  border: 1px solid #dce6f5;
+  border-radius: 0.75rem;
+}
+
+.filtros__campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.filtros__label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #4a5a7a;
+}
+
+.filtros__select {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #c8d6ee;
+  border-radius: 0.4rem;
+  font-size: 0.88rem;
+  min-width: 140px;
+}
+
+.btn-consultar {
+  padding: 0.5rem 1.25rem;
+  border: none;
+  border-radius: 0.4rem;
+  background: var(--color-primary);
+  color: #ffffff;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-consultar:hover { background: var(--color-primary-dark); }
